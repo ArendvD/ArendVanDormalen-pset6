@@ -6,4 +6,6 @@
     <string name="enter_password_hint">Enter Password</string>
     <string name="create_account_button">Create Account</string>
     <string name="log_in_button">Log In</string>
+    <string name="search_button_database">Search</string>
+    <string name="search_box_database">Enter Title</string>
 </resources>

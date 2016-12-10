@@ -14,7 +14,31 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="DATABASE"/>
+        android:text="DATABASE"
+        android:id="@+id/title_database"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/search_box_database"
+        android:layout_below="@id/title_database"
+        android:layout_margin="20dp"
+        android:hint="@string/search_box_database"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/search_button_database"
+        android:layout_below="@id/search_box_database"
+        android:text="@string/search_button_database"
+        android:onClick="searchOnTitle"/>
+
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/results_list_database"
+        android:layout_below="@id/search_button_database">
+    </ListView>
 
 
 </RelativeLayout>

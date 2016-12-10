@@ -2,6 +2,7 @@ package arend.arendvandormalen_pset6;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -55,15 +56,16 @@ public class ArtAsyncTask extends AsyncTask<String, Integer, String> {
 
         try{
             JSONObject resultsObj = new JSONObject(result);
-            String response = resultsObj.getString("artObjects");
-            if (response.equals("null")){
+
+            String count = resultsObj.getString("count");
+            Toast.makeText(context, count+" art works found.", Toast.LENGTH_SHORT).show();
+
+            JSONArray artObjects = resultsObj.getJSONArray("artObjects");
+            if (artObjects.length() == 0){
                 Toast.makeText(context, "No art works were found", Toast.LENGTH_SHORT).show();
+
             } else {
 
-                String count = resultsObj.getString("count");
-                Toast.makeText(context, count+" objects found.", Toast.LENGTH_SHORT).show();
-
-                JSONArray artObjects = resultsObj.getJSONArray("artObjects");
                 searchResultsList = new ArrayList<>();
 
                 // Fill array with search results, fill objects with data available at this point
@@ -72,10 +74,16 @@ public class ArtAsyncTask extends AsyncTask<String, Integer, String> {
                     String id = artObject.getString("objectNumber");
                     String title = artObject.getString("title");
                     String artist = artObject.getString("principalOrFirstMaker");
-                    JSONObject imageObject = artObject.getJSONObject("webImage");
-                    String imageLink = imageObject.getString("url");
-                    ArtObject movieData = new ArtObject(id, title, artist, imageLink);
+
+
+                    ArtObject movieData = new ArtObject(id, title, artist);
                     searchResultsList.add(movieData);
+
+                    if(artObject.has("webImage") && !artObject.isNull("webImage")){
+                        JSONObject imageObject = artObject.getJSONObject("webImage");
+                        String imageLink = imageObject.getString("url");
+                        movieData.setImageLink(imageLink);
+                    }
                 }
 
                 activity.parseResults(searchResultsList);

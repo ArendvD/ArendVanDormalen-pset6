@@ -11,11 +11,15 @@ import java.io.Serializable;
 
 public class ArtObject implements Serializable{
 
+    // Constructor
     public String id;
     public String title;
     public String artist;
+
+    // On search query, not all objects have an image.
     public String imageLink;
 
+    // On details query
     public String[] types;
     public String descriptionShort;
     public String descriptionLong;
@@ -23,10 +27,9 @@ public class ArtObject implements Serializable{
 
 
 
-    public ArtObject(String id, String title, String imageLink, String artist){
+    public ArtObject(String id, String title, String artist){
         this.id = id;
         this.title = title;
-        this.imageLink = imageLink;
         this.artist = artist;
     }
 

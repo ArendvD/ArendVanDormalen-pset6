@@ -1,5 +1,7 @@
 package arend.arendvandormalen_pset6;
 
+import android.util.Log;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -15,14 +17,14 @@ import java.net.URL;
 
 public class HttpRequestHelper {
 
-    private static final String url1 = "https://www.rijksmuseum.nl/api/nl/collection/";
-    private static final String url2 = "?key=VPovhf3D&format=json";
+    private static final String url1 = "https://www.rijksmuseum.nl/api/nl/collection?q=";
+    private static final String url2 = "&key=VPovhf3D&format=json";
 
     protected static synchronized String downloadFromServer(String... params){
 
         String result = "";
 
-        String searchTerm = "sk-c-5"; // TODO: Replace with actual searchTerm ( = id) -> params[0]
+        String searchTerm = params[0];
 
         String completeUrl = url1 + searchTerm + url2;
 
@@ -51,6 +53,9 @@ public class HttpRequestHelper {
                         line = br.readLine();
                     }
                 } else {
+
+                    Log.d("responseCodeError", responseCode.toString());
+
                     BufferedReader br = new BufferedReader(
                             new InputStreamReader(connection.getErrorStream()));
                 }
