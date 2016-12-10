@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "200976731826",
+    "firebase_url": "https://arendvandormalen-pset6.firebaseio.com",
+    "project_id": "arendvandormalen-pset6",
+    "storage_bucket": "arendvandormalen-pset6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:200976731826:android:a7eaff62942691e1",
+        "android_client_info": {
+          "package_name": "arend.arendvandormalen_pset6"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "200976731826-7m71ebk5cijs5t8qvgsvhkqrd333sgic.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "arend.arendvandormalen_pset6",
+            "certificate_hash": "AA7F3F03BECBE57ED0A737462B5C324C72490BA4"
+          }
+        },
+        {
+          "client_id": "200976731826-b4u1hflgtc05jl142i59b7sehefmp4se.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBQ-CBVx30FNdLVW8QTaZUy7uiTLEE-kNI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "200976731826-b4u1hflgtc05jl142i59b7sehefmp4se.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">ArendVanDormalen-pset6</string>
+    <string name="log_in">Log In</string>
+    <string name="go_to_database">Go To Database</string>
+    <string name="enter_email_hint">Enter E-mail Adress</string>
+    <string name="enter_password_hint">Enter Password</string>
+    <string name="create_account_button">Create Account</string>
+    <string name="log_in_button">Log In</string>
+</resources>
