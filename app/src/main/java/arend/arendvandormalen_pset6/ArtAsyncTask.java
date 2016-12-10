@@ -39,7 +39,7 @@ public class ArtAsyncTask extends AsyncTask<String, Integer, String> {
     // doInBackground()
     @Override
     protected String doInBackground(String... params) {
-        return HttpRequestHelper.downloadFromServer(params);
+        return HttpRequestHelper.downloadFromServer("s", params);
     }
 
     // onProgressUpdate()

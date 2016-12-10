@@ -19,14 +19,28 @@ public class HttpRequestHelper {
 
     private static final String url1 = "https://www.rijksmuseum.nl/api/nl/collection?q=";
     private static final String url2 = "&key=VPovhf3D&format=json";
+    private static final String url3 = "https://www.rijksmuseum.nl/api/nl/collection/";
+    private static final String url4 = "?key=VPovhf3D&format=json";
 
-    protected static synchronized String downloadFromServer(String... params){
+    protected static synchronized String downloadFromServer(String type, String... params){
 
         String result = "";
 
         String searchTerm = params[0];
 
-        String completeUrl = url1 + searchTerm + url2;
+        // Check what URL to create based on type of query.
+        String completeUrl;
+        switch (type){
+            case "s": completeUrl = url1 + searchTerm + url2;
+                break;
+            case "d": completeUrl = url3 + searchTerm + url4;
+                    break;
+            default: completeUrl = "";
+                break;
+        }
+        Log.d("URL", completeUrl);
+
+
 
         // Create URL, check on mistakes.
         URL url = null;

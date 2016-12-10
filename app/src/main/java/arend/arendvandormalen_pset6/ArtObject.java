@@ -3,6 +3,7 @@ package arend.arendvandormalen_pset6;
 import android.util.Log;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  * Created by Arend on 2016-12-09.
@@ -20,10 +21,11 @@ public class ArtObject implements Serializable{
     public String imageLink;
 
     // On details query
-    public String[] types;
-    public String descriptionShort;
-    public String descriptionLong;
+    public ArrayList<String> types;
+    public String titleLong;
+    public String description;
     public String creationDate; // Either single year or time span
+    public String century;
 
 
 
@@ -42,19 +44,19 @@ public class ArtObject implements Serializable{
         this.creationDate = creationDate;
     }
 
-    public void setDescriptionLong(String descriptionLong) {
-        this.descriptionLong = descriptionLong;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public void setDescriptionShort(String descriptionShort) {
-        this.descriptionShort = descriptionShort;
+    public void setTitleLong(String titleLong) {
+        this.titleLong = titleLong;
     }
 
     public void setImageLink(String imageLink) {
         this.imageLink = imageLink;
     }
 
-    public void setTypes(String[] types) {
+    public void setTypes(ArrayList<String> types) {
         this.types = types;
     }
 
@@ -66,6 +68,10 @@ public class ArtObject implements Serializable{
         this.title = title;
     }
 
+    public void setCentury(String century) {
+        this.century = century;
+    }
+
     // Get-methods
     public String getArtist() {
         return artist;
@@ -75,19 +81,19 @@ public class ArtObject implements Serializable{
         return creationDate;
     }
 
-    public String getDescriptionLong() {
-        return descriptionLong;
+    public String getDescription() {
+        return description;
     }
 
-    public String getDescriptionShort() {
-        return descriptionShort;
+    public String getTitleLong() {
+        return titleLong;
     }
 
     public String getImageLink() {
         return imageLink;
     }
 
-    public String[] getTypes() {
+    public ArrayList<String> getTypes() {
         return types;
     }
 
@@ -97,5 +103,9 @@ public class ArtObject implements Serializable{
 
     public String getTitle() {
         return title;
+    }
+
+    public String getCentury() {
+        return century;
     }
 }
