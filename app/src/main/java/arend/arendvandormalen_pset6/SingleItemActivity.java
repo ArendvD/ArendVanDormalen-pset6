@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -48,6 +49,7 @@ public class SingleItemActivity extends AppCompatActivity {
         // Fill in fields
         titleView.setText(title);
         longTitleView.setText(longTitle);
+        longTitleView.setVisibility(View.GONE); // Test layout no title
         artistView.setText(artist);
         yearView.setText(year);
         centuryView.setText(century);

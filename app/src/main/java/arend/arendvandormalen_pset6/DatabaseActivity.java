@@ -32,7 +32,6 @@ public class DatabaseActivity extends AppCompatActivity {
         artAsyncTask.execute(searchTerm);
     }
 
-
     public void parseResults(final ArrayList<ArtObject> searchResultList){
         this.searchResultList = searchResultList;
 

@@ -105,7 +105,8 @@ public class ArtObject implements Serializable{
         return title;
     }
 
-    public String getCentury() {
+    public String
+    getCentury() {
         return century;
     }
 }

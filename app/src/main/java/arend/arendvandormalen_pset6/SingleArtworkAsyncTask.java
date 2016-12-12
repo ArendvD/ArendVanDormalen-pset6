@@ -22,7 +22,7 @@ public class SingleArtworkAsyncTask extends AsyncTask<String, Integer, String> {
     Context context;
     DatabaseActivity activity;
     ArrayList<ArtObject> searchResults;
-    String clickedArtworkTitle;
+    String clickedArtworkId;
     ArtObject clickedArtwork;
 
     public SingleArtworkAsyncTask(DatabaseActivity activity, ArrayList<ArtObject> searchResults){
@@ -40,7 +40,8 @@ public class SingleArtworkAsyncTask extends AsyncTask<String, Integer, String> {
     // doInBackground()
     @Override
     protected String doInBackground(String... params) {
-        clickedArtworkTitle = params[0];
+        clickedArtworkId = params[0];
+        Log.d("clickedArtworkTitle", clickedArtworkId);
         return HttpRequestHelper.downloadFromServer("d", params);
     }
 
@@ -66,10 +67,11 @@ public class SingleArtworkAsyncTask extends AsyncTask<String, Integer, String> {
                 // Find data object from list
                 for (int i = 0; i < searchResults.size() ; i++) {
                     ArtObject currentObject = searchResults.get(i);
-                    String currentTitle = currentObject.getTitle();
-                    if(currentTitle.equals(clickedArtworkTitle)){
+                    String currentId = currentObject.getId();
+                    Log.d("checking item", currentId);
+                    if(currentId.equals(clickedArtworkId)){
+                        Log.d("matched id", currentId);
                         clickedArtwork = currentObject;
-                        Log.d("matched id", clickedArtworkTitle);
                         break;
                     }
                 }
