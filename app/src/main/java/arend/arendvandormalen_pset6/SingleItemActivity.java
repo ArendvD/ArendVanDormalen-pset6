@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+import android.widget.ViewSwitcher;
 
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -64,6 +66,25 @@ public class SingleItemActivity extends AppCompatActivity {
 
     }
 
+    public void addToFavorites(View view) {
+
+        // Switch image
+        ViewSwitcher switcher = (ViewSwitcher)findViewById(R.id.heart_image_single);
+        switcher.showNext();
+        Toast.makeText(SingleItemActivity.this, "Saved to favorites",
+                Toast.LENGTH_SHORT).show();
+
+    }
+
+    public void removeFromFavorites(View view) {
+
+        // Switch image
+        ViewSwitcher switcher = (ViewSwitcher)findViewById(R.id.heart_image_single);
+        switcher.showNext();
+        Toast.makeText(SingleItemActivity.this, "Removed from favorites",
+                Toast.LENGTH_SHORT).show();
+
+    }
 }
 
 // New AsyncTask that downloads pictures from database.

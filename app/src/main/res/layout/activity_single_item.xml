@@ -25,6 +25,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/image_single"
+            android:src="@drawable/art_default"
             android:adjustViewBounds="true"
             android:layout_centerHorizontal="true"
             android:layout_below="@id/title_long_single"
@@ -63,6 +64,30 @@
             android:layout_height="wrap_content"
             android:id="@+id/description_single"
             android:layout_below="@id/linear_layout_single"/>
+
+
+        <ViewSwitcher
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/heart_image_single"
+            android:layout_below="@id/description_single">
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:id="@+id/favorite_image_single"
+            android:src="@drawable/unfavorite"
+            android:onClick="addToFavorites"/>
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:id="@+id/unfavorite_image_single"
+            android:src="@drawable/favorite"
+            android:onClick="removeFromFavorites"/>
+
+        </ViewSwitcher>
+
 
     </RelativeLayout>
 </ScrollView>
