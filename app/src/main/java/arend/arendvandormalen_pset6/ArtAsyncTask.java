@@ -57,14 +57,15 @@ public class ArtAsyncTask extends AsyncTask<String, Integer, String> {
         try{
             JSONObject resultsObj = new JSONObject(result);
 
-            String count = resultsObj.getString("count");
-            Toast.makeText(context, count+" art works found.", Toast.LENGTH_SHORT).show();
-
             JSONArray artObjects = resultsObj.getJSONArray("artObjects");
             if (artObjects.length() == 0){
                 Toast.makeText(context, "No art works were found", Toast.LENGTH_SHORT).show();
 
             } else {
+
+                // Tell user how many artworks are found based on query
+                String count = resultsObj.getString("count");
+                Toast.makeText(context, count+" art works found.", Toast.LENGTH_SHORT).show();
 
                 searchResultsList = new ArrayList<>();
 

@@ -1,5 +1,6 @@
 package arend.arendvandormalen_pset6;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -29,9 +30,11 @@ public class LogInActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log_in);
 
+        // Retrieve fields used in multiple methods
         emailBox = (EditText)findViewById(R.id.email_box);
         passwordBox = (EditText)findViewById(R.id.password_box);
 
+        // Connect to Firebase
         mAuth = FirebaseAuth.getInstance();
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -62,6 +65,83 @@ public class LogInActivity extends AppCompatActivity {
         }
     }
 
+    // New user is added to database through build-in Firebase function
+    public void createAccount(View view){
+
+        if(!validateForm()){
+            return;
+        }
+
+        final String email = emailBox.getText().toString();
+        final String password = passwordBox.getText().toString();
+
+        mAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        Log.d(TAG, "createUserWithEmail:onComplete:" + task.isSuccessful());
+
+                        // If sign in fails, display a message to the user. If sign in succeeds
+                        // the auth state listener will be notified and logic to handle the
+                        // signed in user can be handled in the listener.
+                        if (!task.isSuccessful() && task.isComplete()) {
+                            Toast.makeText(LogInActivity.this, "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
+                            Log.d("TaskError", task.getException().toString());
+                        } else {
+
+                            Toast.makeText(LogInActivity.this, "Account created.",
+                                    Toast.LENGTH_SHORT).show();
+                            Intent toUser = new Intent(LogInActivity.this, UserActivity.class);
+                            toUser.putExtra("email", email);
+                            toUser.putExtra("password", password);
+                            startActivity(toUser);
+
+                        }
+
+                    }
+                });
+
+    }
+
+    // Existing user is signed in through build-in Firebase function
+    public void signIn(View view) {
+
+        if(!validateForm()){
+            return;
+        }
+
+        final String email = emailBox.getText().toString();
+        final String password = passwordBox.getText().toString();
+
+        mAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        Log.d(TAG, "signInWithEmail:onComplete:" + task.isSuccessful());
+
+                        // If sign in fails, display a message to the user. If sign in succeeds
+                        // the auth state listener will be notified and logic to handle the
+                        // signed in user can be handled in the listener.
+                        if (!task.isSuccessful()) {
+                            Log.w(TAG, "signInWithEmail", task.getException());
+                            Toast.makeText(LogInActivity.this, "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
+                        } else {
+
+                            Intent toUser = new Intent(LogInActivity.this, UserActivity.class);
+                            toUser.putExtra("email", email);
+                            toUser.putExtra("password", password);
+                            startActivity(toUser);
+
+                        }
+
+
+                    }
+                });
+    }
+
+    // Checks whether form has been filled in and password has correct length
     private boolean validateForm() {
         boolean valid = true;
 
@@ -77,71 +157,15 @@ public class LogInActivity extends AppCompatActivity {
         if (TextUtils.isEmpty(password)) {
             passwordBox.setError("Required.");
             valid = false;
-        } else {
+        } else if (password.length() < 6) {
+            passwordBox.setError("Password should contain six or more characters");
+            valid = false;
+        }
+        else{
             passwordBox.setError(null);
         }
 
         return valid;
-    }
-
-
-    public void createAccount(View view){
-
-        if(!validateForm()){
-            return;
-        }
-
-        String email = emailBox.getText().toString();
-        String password = passwordBox.getText().toString();
-
-        mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        Log.d(TAG, "createUserWithEmail:onComplete:" + task.isSuccessful());
-
-                        // If sign in fails, display a message to the user. If sign in succeeds
-                        // the auth state listener will be notified and logic to handle the
-                        // signed in user can be handled in the listener.
-                        if (!task.isSuccessful() && task.isComplete()) {
-                            Toast.makeText(LogInActivity.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
-                            Log.d("TaskError", task.getException().toString());
-                        }
-
-                        // ...
-                    }
-                });
-
-    }
-
-    public void signIn(View view) {
-
-        if(!validateForm()){
-            return;
-        }
-
-        String email = emailBox.getText().toString();
-        String password = passwordBox.getText().toString();
-
-        mAuth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        Log.d(TAG, "signInWithEmail:onComplete:" + task.isSuccessful());
-
-                        // If sign in fails, display a message to the user. If sign in succeeds
-                        // the auth state listener will be notified and logic to handle the
-                        // signed in user can be handled in the listener.
-                        if (!task.isSuccessful()) {
-                            Log.w(TAG, "signInWithEmail", task.getException());
-                            Toast.makeText(LogInActivity.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
-                        }
-
-                        // ...
-                    }
-                });
     }
 
 }

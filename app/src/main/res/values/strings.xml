@@ -9,4 +9,5 @@
     <string name="search_button_database">Search</string>
     <string name="search_box_database">Enter Title</string>
     <string name="content_description_image_single_item">Artwork</string>
+    <string name="title_user">Your Favorites:</string>
 </resources>

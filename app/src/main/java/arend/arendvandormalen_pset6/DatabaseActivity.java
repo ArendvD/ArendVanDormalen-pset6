@@ -49,6 +49,7 @@ public class DatabaseActivity extends AppCompatActivity {
 
                Log.d("clicked", artId);
 
+               // AsyncTask will request additional information to server and add data to ArtObject
                SingleArtworkAsyncTask singleArtworkAsyncTask = new
                        SingleArtworkAsyncTask(DatabaseActivity.this, searchResultList);
                singleArtworkAsyncTask.execute(artId);
@@ -57,14 +58,5 @@ public class DatabaseActivity extends AppCompatActivity {
         });
 
     }
-
-    public void toSingleArtwork(ArtObject artObject){
-
-        Intent toSingleItemActivity = new Intent(this, SingleItemActivity.class);
-        toSingleItemActivity.putExtra("artObject", artObject);
-        startActivity(toSingleItemActivity);
-
-    }
-
 
 }

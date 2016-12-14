@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -22,6 +23,7 @@ public class SingleItemActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_single_item);
 
+        // Retrieve the object
         Intent intent = getIntent();
         ArtObject artObject = (ArtObject) intent.getSerializableExtra("artObject");
 
@@ -34,10 +36,20 @@ public class SingleItemActivity extends AppCompatActivity {
         String description = artObject.getDescription();
         String imageLink = artObject.getImageLink();
         ArrayList<String> types = artObject.getTypes();
-        // Append types-data
-        StringBuilder builder = new StringBuilder();
-        for(String type : types){
-            builder.append(type + "\n");
+
+        String typesString = "";
+
+        // Check if data on types is present, as not all artworks have this data
+        if (types == null) {
+            typesString = "Type Unknown";
+        } else {
+            // Append types-data
+            StringBuilder builder = new StringBuilder();
+            for (String type : types) {
+                String typeLine = type + "\n";
+                builder.append(typeLine);
+            }
+            typesString = builder.toString();
         }
 
         // Retrieve fields in xml file
@@ -47,8 +59,10 @@ public class SingleItemActivity extends AppCompatActivity {
         TextView yearView = (TextView)findViewById(R.id.year_single);
         TextView centuryView = (TextView)findViewById(R.id.century_single);
         TextView descriptionView = (TextView)findViewById(R.id.description_single);
+        TextView typesView = (TextView)findViewById(R.id.types_single);
 
-        // Fill in fields
+
+        // Fill in fields in layout
         titleView.setText(title);
         longTitleView.setText(longTitle);
         longTitleView.setVisibility(View.GONE); // Test layout no title
@@ -56,8 +70,9 @@ public class SingleItemActivity extends AppCompatActivity {
         yearView.setText(year);
         centuryView.setText(century);
         descriptionView.setText(description);
+        typesView.setText(typesString);
 
-        // If image exists, retrieve it through AsyncTask
+        // If an image exists, retrieve it through AsyncTask
         if(imageLink != null){
             ImageView imageView = (ImageView)findViewById(R.id.image_single);
             ImageAsyncTask imageAsyncTask = new ImageAsyncTask(imageView);
@@ -71,8 +86,12 @@ public class SingleItemActivity extends AppCompatActivity {
         // Switch image
         ViewSwitcher switcher = (ViewSwitcher)findViewById(R.id.heart_image_single);
         switcher.showNext();
+
+        // Notify user that item is saved
         Toast.makeText(SingleItemActivity.this, "Saved to favorites",
                 Toast.LENGTH_SHORT).show();
+
+
 
     }
 
@@ -81,6 +100,8 @@ public class SingleItemActivity extends AppCompatActivity {
         // Switch image
         ViewSwitcher switcher = (ViewSwitcher)findViewById(R.id.heart_image_single);
         switcher.showNext();
+
+        // Notify user that item is removed
         Toast.makeText(SingleItemActivity.this, "Removed from favorites",
                 Toast.LENGTH_SHORT).show();
 

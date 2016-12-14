@@ -1,9 +1,13 @@
 package arend.arendvandormalen_pset6;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
+
+import com.google.firebase.database.DatabaseReference;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -20,21 +24,21 @@ import java.util.ArrayList;
 public class SingleArtworkAsyncTask extends AsyncTask<String, Integer, String> {
 
     Context context;
-    DatabaseActivity activity;
     ArrayList<ArtObject> searchResults;
     String clickedArtworkId;
     ArtObject clickedArtwork;
 
-    public SingleArtworkAsyncTask(DatabaseActivity activity, ArrayList<ArtObject> searchResults){
-        this.activity = activity;
-        this.context = this.activity.getApplicationContext();
+    private DatabaseReference mDatabase;
+
+    public SingleArtworkAsyncTask(Context context, ArrayList<ArtObject> searchResults){
         this.searchResults = searchResults;
+        this.context = context;
     }
 
     // onPreExecute()
     @Override
     protected void onPreExecute(){
-        Toast.makeText(context, "Getting data from the server", Toast.LENGTH_SHORT).show();
+        super.onPreExecute();
     }
 
     // doInBackground()
@@ -68,9 +72,8 @@ public class SingleArtworkAsyncTask extends AsyncTask<String, Integer, String> {
                 for (int i = 0; i < searchResults.size() ; i++) {
                     ArtObject currentObject = searchResults.get(i);
                     String currentId = currentObject.getId();
-                    Log.d("checking item", currentId);
+
                     if(currentId.equals(clickedArtworkId)){
-                        Log.d("matched id", currentId);
                         clickedArtwork = currentObject;
                         break;
                     }
@@ -101,8 +104,14 @@ public class SingleArtworkAsyncTask extends AsyncTask<String, Integer, String> {
                 clickedArtwork.setCreationDate(year);
                 clickedArtwork.setCentury(century);
 
-                // Call method to show new activity
-                activity.toSingleArtwork(clickedArtwork);
+                // Send intent to open single item
+                Intent toSingleItemActivity = new Intent(context, SingleItemActivity.class);
+                toSingleItemActivity.putExtra("artObject", clickedArtwork);
+                context.startActivity(toSingleItemActivity);
+
+                // Close the old activity
+                ((Activity)context).finish();
+
             }
 
         } catch (JSONException e){

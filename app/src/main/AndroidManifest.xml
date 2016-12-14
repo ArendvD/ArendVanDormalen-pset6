@@ -19,7 +19,8 @@
         </activity>
         <activity android:name=".LogInActivity" />
         <activity android:name=".DatabaseActivity" />
-        <activity android:name=".SingleItemActivity"></activity>
+        <activity android:name=".SingleItemActivity" />
+        <activity android:name=".UserActivity"></activity>
     </application>
 
 </manifest>
