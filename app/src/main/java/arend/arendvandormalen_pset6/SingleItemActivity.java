@@ -13,15 +13,24 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewSwitcher;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.io.InputStream;
 import java.util.ArrayList;
 
 public class SingleItemActivity extends AppCompatActivity {
 
+
+    DatabaseReference ref;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_single_item);
+
+        // Retrieve database, used for adding/removing item from favorites
+        ref = FirebaseDatabase.getInstance().getReference();
 
         // Retrieve the object
         Intent intent = getIntent();
@@ -35,22 +44,8 @@ public class SingleItemActivity extends AppCompatActivity {
         String century = artObject.getCentury() + "e eeuw";
         String description = artObject.getDescription();
         String imageLink = artObject.getImageLink();
-        ArrayList<String> types = artObject.getTypes();
+        String types = artObject.getTypes();
 
-        String typesString = "";
-
-        // Check if data on types is present, as not all artworks have this data
-        if (types == null) {
-            typesString = "Type Unknown";
-        } else {
-            // Append types-data
-            StringBuilder builder = new StringBuilder();
-            for (String type : types) {
-                String typeLine = type + "\n";
-                builder.append(typeLine);
-            }
-            typesString = builder.toString();
-        }
 
         // Retrieve fields in xml file
         TextView titleView = (TextView)findViewById(R.id.title_single);
@@ -61,7 +56,6 @@ public class SingleItemActivity extends AppCompatActivity {
         TextView descriptionView = (TextView)findViewById(R.id.description_single);
         TextView typesView = (TextView)findViewById(R.id.types_single);
 
-
         // Fill in fields in layout
         titleView.setText(title);
         longTitleView.setText(longTitle);
@@ -70,7 +64,7 @@ public class SingleItemActivity extends AppCompatActivity {
         yearView.setText(year);
         centuryView.setText(century);
         descriptionView.setText(description);
-        typesView.setText(typesString);
+        typesView.setText(types);
 
         // If an image exists, retrieve it through AsyncTask
         if(imageLink != null){
@@ -83,21 +77,22 @@ public class SingleItemActivity extends AppCompatActivity {
 
     public void addToFavorites(View view) {
 
-        // Switch image
+        // Switch image to filled heart
         ViewSwitcher switcher = (ViewSwitcher)findViewById(R.id.heart_image_single);
         switcher.showNext();
+
+
+
 
         // Notify user that item is saved
         Toast.makeText(SingleItemActivity.this, "Saved to favorites",
                 Toast.LENGTH_SHORT).show();
 
-
-
     }
 
     public void removeFromFavorites(View view) {
 
-        // Switch image
+        // Switch image to empty heart
         ViewSwitcher switcher = (ViewSwitcher)findViewById(R.id.heart_image_single);
         switcher.showNext();
 

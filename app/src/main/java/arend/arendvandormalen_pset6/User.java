@@ -10,7 +10,7 @@ import java.util.ArrayList;
 //@IgnoreExtraProperties
 public class User {
 
-    public String username;
+    public String userId;
     public String email;
     public ArrayList<ArtObject> favorites;
 
@@ -19,8 +19,8 @@ public class User {
     }
 
     // Constructor
-    public User(String username, String email) {
-        this.username = username;
+    public User(String userId, String email) {
+        this.userId = userId;
         this.email = email;
     }
 
@@ -29,8 +29,8 @@ public class User {
         return email;
     }
 
-    public String getUsername() {
-        return username;
+    public String getUserId() {
+        return userId;
     }
 
     public ArrayList<ArtObject> getFavorites() {
@@ -42,8 +42,8 @@ public class User {
         this.email = email;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUserId(String username) {
+        this.userId = username;
     }
 
     public void setFavorites(ArrayList<ArtObject> favorites) {

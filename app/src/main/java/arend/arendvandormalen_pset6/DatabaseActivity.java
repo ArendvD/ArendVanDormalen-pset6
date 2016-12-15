@@ -13,9 +13,7 @@ import java.util.ArrayList;
 
 public class DatabaseActivity extends AppCompatActivity {
 
-    public String key = "VPovhf3D";
     public ArrayList<ArtObject> searchResultList;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

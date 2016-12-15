@@ -6,9 +6,12 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -23,6 +26,16 @@ public class UserActivity extends AppCompatActivity {
         setContentView(R.layout.activity_user);
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
+
+        // Display email adress of user, if possible to retrieve.
+        FirebaseUser fbUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (fbUser.getEmail() != null) {
+            String userEmail = "Signed in as: " + fbUser.getEmail();
+            TextView emailView = (TextView)findViewById(R.id.email_user);
+            emailView.setText(userEmail);
+        }
+        /*
+        String fbUserId = fbUser.getUid();
 
 
         // TODO: Get list of ArtObjects from Firebase server
@@ -50,7 +63,7 @@ public class UserActivity extends AppCompatActivity {
 
             }
         });
-
+        */
 
     }
 }

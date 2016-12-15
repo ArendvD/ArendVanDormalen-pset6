@@ -21,7 +21,7 @@ public class ArtObject implements Serializable{
     public String imageLink;
 
     // On details query
-    public ArrayList<String> types;
+    public String types;
     public String titleLong;
     public String description;
     public String creationDate; // Either single year or time span
@@ -36,9 +36,6 @@ public class ArtObject implements Serializable{
     }
 
     // Set-methods
-    public void setArtist(String artist) {
-        this.artist = artist;
-    }
 
     public void setCreationDate(String creationDate) {
         this.creationDate = creationDate;
@@ -56,20 +53,34 @@ public class ArtObject implements Serializable{
         this.imageLink = imageLink;
     }
 
-    public void setTypes(ArrayList<String> types) {
-        this.types = types;
-    }
-
     public void setId(String id) {
         this.id = id;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
     public void setCentury(String century) {
         this.century = century;
+    }
+
+    // Save types in a single string instead of an ArrayList
+    public void setTypes(ArrayList<String> types) {
+
+        String typesString = "";
+
+        // Check if data on types is present, as not all artworks have this data
+        if (types == null) {
+            typesString = "Type Unknown";
+        } else {
+            // Append types-data
+            StringBuilder builder = new StringBuilder();
+            for (String type : types) {
+                String typeLine = type + "\n";
+                builder.append(typeLine);
+            }
+            typesString = builder.toString();
+        }
+
+        this.types = typesString;
+
     }
 
     // Get-methods
@@ -93,7 +104,7 @@ public class ArtObject implements Serializable{
         return imageLink;
     }
 
-    public ArrayList<String> getTypes() {
+    public String getTypes() {
         return types;
     }
 

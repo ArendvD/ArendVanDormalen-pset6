@@ -84,8 +84,8 @@ public class SingleArtworkAsyncTask extends AsyncTask<String, Integer, String> {
                 String longTitle = artObject.getString("longTitle");
 
                 ArrayList<String> typesList = new ArrayList<>();
-                if (artObject.has("types") && !artObject.isNull("types")) {
-                    JSONArray typesArray = artObject.getJSONArray("types");
+                if (artObject.has("objectTypes") && !artObject.isNull("objectTypes")) {
+                    JSONArray typesArray = artObject.getJSONArray("objectTypes");
 
                     for (int i = 0; i < typesArray.length(); i++) {
                         String type = typesArray.getString(i);
