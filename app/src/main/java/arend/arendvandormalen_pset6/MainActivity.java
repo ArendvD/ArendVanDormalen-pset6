@@ -8,7 +8,7 @@ import android.view.View;
 /**
  * Created by Arend on 2016-12-05.
  * Home screen of this app. A picture of the Rijksmusuem is displayed. Users have the choice
- * of signing in or going to the database directly, which removes the possibility of adding
+ * of signing in or going to the database directly, which should remove the possibility of adding
  * favorites.
  */
 
