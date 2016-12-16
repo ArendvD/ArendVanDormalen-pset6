@@ -12,7 +12,8 @@ import java.util.ArrayList;
 
 /**
  * Created by Arend on 2016-12-10.
- * Adapter to fill list with search results
+ * Adapter which fills the custom list items with a small amount of data.
+ * Items will contain name of the artwork and name of the creator.
  */
 
 public class SearchListAdapter extends ArrayAdapter<ArtObject> {

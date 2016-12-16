@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 /**
  * Created by Arend on 2016-12-14.
- * Custom data class for a user.
+ * Custom data class for a user. Contains id, email and list of favorites
  */
 
 //@IgnoreExtraProperties

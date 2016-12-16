@@ -2,7 +2,6 @@ package arend.arendvandormalen_pset6;
 
 import android.content.Context;
 import android.os.AsyncTask;
-import android.util.Log;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -14,14 +13,13 @@ import java.util.ArrayList;
 /**
  * Created by Arend on 2016-12-10.
  * Thread to get data from server without overloading Activities.
- * Returns a list of items based on a search.
+ * Returns a list of artObjects based on a search query.
  */
 
 public class ArtAsyncTask extends AsyncTask<String, Integer, String> {
 
     Context context;
     DatabaseActivity activity;
-
     ArrayList<ArtObject> searchResultsList;
 
     // Constructor
@@ -30,34 +28,39 @@ public class ArtAsyncTask extends AsyncTask<String, Integer, String> {
         this.context = this.activity.getApplicationContext();
     }
 
-    // onPreExecute()
+    // Notifies user connection will be made
     @Override
     protected void onPreExecute(){
         Toast.makeText(context, "Getting data from the server", Toast.LENGTH_SHORT).show();
     }
 
-    // doInBackground()
+    // Sends url with an extra parameter to Http helper class
     @Override
     protected String doInBackground(String... params) {
-        return HttpRequestHelper.downloadFromServer("s", params);
+        return HttpRequestHelper.downloadFromServer("search", params);
     }
 
-    // onProgressUpdate()
+
     @Override
     protected void onProgressUpdate(Integer... values) {
         super.onProgressUpdate(values);
     }
 
 
-    // onPostExecute()
+    // Create list of ArtObjects based on found API.
+    // String result is the API result found on the generated URL.
     @Override
     protected void onPostExecute(String result) {
         super.onPostExecute(result);
 
+        // Try-catch for JSON errors.
         try{
             JSONObject resultsObj = new JSONObject(result);
 
+            // Select artworks from metadata
             JSONArray artObjects = resultsObj.getJSONArray("artObjects");
+
+            // Check if results are found based on query
             if (artObjects.length() == 0){
                 Toast.makeText(context, "No art works were found", Toast.LENGTH_SHORT).show();
 
@@ -76,17 +79,21 @@ public class ArtAsyncTask extends AsyncTask<String, Integer, String> {
                     String title = artObject.getString("title");
                     String artist = artObject.getString("principalOrFirstMaker");
 
+                    // Create artObject and add values
+                    ArtObject artData = new ArtObject();
+                    artData.setId(id);
+                    artData.setTitle(title);
+                    artData.setArtist(artist);
+                    searchResultsList.add(artData);
 
-                    ArtObject movieData = new ArtObject(id, title, artist);
-                    searchResultsList.add(movieData);
-
+                    // Check if an image is present in API and set the link if so.
                     if(artObject.has("webImage") && !artObject.isNull("webImage")){
                         JSONObject imageObject = artObject.getJSONObject("webImage");
                         String imageLink = imageObject.getString("url");
-                        movieData.setImageLink(imageLink);
+                        artData.setImageLink(imageLink);
                     }
                 }
-
+                // send search results back to activity
                 activity.parseResults(searchResultsList);
             }
 

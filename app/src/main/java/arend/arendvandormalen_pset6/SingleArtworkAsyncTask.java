@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
 
@@ -19,6 +18,8 @@ import java.util.ArrayList;
 /**
  * Created by Arend on 2016-12-10.
  * AsyncTask for retrieving extended data of a single artwork.
+ * AsyncTask is called when an item is clicked. This extended data is not available in AsyncTask
+ * for multiple artworks.
  */
 
 public class SingleArtworkAsyncTask extends AsyncTask<String, Integer, String> {
@@ -27,8 +28,6 @@ public class SingleArtworkAsyncTask extends AsyncTask<String, Integer, String> {
     ArrayList<ArtObject> searchResults;
     String clickedArtworkId;
     ArtObject clickedArtwork;
-
-    private DatabaseReference mDatabase;
 
     public SingleArtworkAsyncTask(Context context, ArrayList<ArtObject> searchResults){
         this.searchResults = searchResults;
@@ -46,7 +45,7 @@ public class SingleArtworkAsyncTask extends AsyncTask<String, Integer, String> {
     protected String doInBackground(String... params) {
         clickedArtworkId = params[0];
         Log.d("clickedArtworkTitle", clickedArtworkId);
-        return HttpRequestHelper.downloadFromServer("d", params);
+        return HttpRequestHelper.downloadFromServer("detail", params);
     }
 
     // onProgressUpdate()
@@ -93,6 +92,7 @@ public class SingleArtworkAsyncTask extends AsyncTask<String, Integer, String> {
                     }
                 }
 
+                // Open dating info, which is a child object from artwork in API
                 JSONObject dateObject = artObject.getJSONObject("dating");
                 String year = dateObject.getString("year");
                 String century = dateObject.getString("period");

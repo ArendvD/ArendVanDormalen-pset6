@@ -10,4 +10,7 @@
     <string name="search_box_database">Enter Title</string>
     <string name="content_description_image_single_item">Artwork</string>
     <string name="title_user">Your Favorites:</string>
+    <string name="title_database">Search through the Rijksmuseum collection:</string>
+    <string name="museum_logo_home_description">Rijksmuseum logo</string>
+    <string name="log_in_title">Log in or register here:</string>
 </resources>

@@ -11,8 +11,9 @@ import java.net.URL;
 
 /**
  * Created by Arend on 2016-12-10.
- *
  * This class sends a request to the server and returns the results in a String.
+ * Connection errors are caught.
+ * Different URLs are called based on a parameter from the AsyncTasks.
  */
 
 public class HttpRequestHelper {
@@ -31,16 +32,14 @@ public class HttpRequestHelper {
         // Check what URL to create based on type of query.
         String completeUrl;
         switch (type){
-            case "s": completeUrl = url1 + searchTerm + url2;
+            case "search": completeUrl = url1 + searchTerm + url2;
                 break;
-            case "d": completeUrl = url3 + searchTerm + url4;
+            case "detail": completeUrl = url3 + searchTerm + url4;
                     break;
             default: completeUrl = "";
                 break;
         }
         Log.d("URL", completeUrl);
-
-
 
         // Create URL, check on mistakes.
         URL url = null;

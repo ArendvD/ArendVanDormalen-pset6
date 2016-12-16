@@ -1,6 +1,5 @@
 package arend.arendvandormalen_pset6;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,6 +9,14 @@ import android.widget.EditText;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+
+/**
+ * Created by Arend on 2016-12-06.
+ * Activity that displays the database. It contains a search bar and a button that sends a
+ * query to the Rijksmuseum server. This will result in a list of items being displayed.
+ * Items can be clicked, on which a second query will be sent. This query will return more
+ * detailed information on this item, which is not present in the first query.
+ */
 
 public class DatabaseActivity extends AppCompatActivity {
 
@@ -21,6 +28,7 @@ public class DatabaseActivity extends AppCompatActivity {
         setContentView(R.layout.activity_database);
     }
 
+    // Reads the user input and sends it to an AsyncTask in order to avoid freezing UI.
     public void searchOnTitle(View view){
 
         EditText searchBox = (EditText)findViewById(R.id.search_box_database);
@@ -30,6 +38,7 @@ public class DatabaseActivity extends AppCompatActivity {
         artAsyncTask.execute(searchTerm);
     }
 
+    // Reads results from AsyncTask and sends it to adapter to fill list.
     public void parseResults(final ArrayList<ArtObject> searchResultList){
         this.searchResultList = searchResultList;
 

@@ -6,23 +6,36 @@ import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewSwitcher;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.InputStream;
-import java.util.ArrayList;
+
+/**
+ * Created by Arend on 2016-12-07.
+ * Activity for displaying a single artwork. Object is received from intent.
+ * Data is recovered from this object and send to the corresponding fields in the layout file.
+ * A heart-shaped button is used for saving an item to the users favorites. Clicking this button
+ * will either add or delete it from the database.
+ * This class contains a small local AsyncTask for loading the image. This will keep the UI from
+ * freezing.
+ *
+ * Pressing android's back button will send the user back to the home page.
+ * Preferably, it would have send them back to the search results.
+ */
 
 public class SingleItemActivity extends AppCompatActivity {
 
-
+    String userId;
     DatabaseReference ref;
+    ArtObject artObject;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +47,7 @@ public class SingleItemActivity extends AppCompatActivity {
 
         // Retrieve the object
         Intent intent = getIntent();
-        ArtObject artObject = (ArtObject) intent.getSerializableExtra("artObject");
+        artObject = (ArtObject) intent.getSerializableExtra("artObject");
 
         // Retrieve data from object
         String title = artObject.getTitle();
@@ -45,7 +58,6 @@ public class SingleItemActivity extends AppCompatActivity {
         String description = artObject.getDescription();
         String imageLink = artObject.getImageLink();
         String types = artObject.getTypes();
-
 
         // Retrieve fields in xml file
         TextView titleView = (TextView)findViewById(R.id.title_single);
@@ -81,12 +93,26 @@ public class SingleItemActivity extends AppCompatActivity {
         ViewSwitcher switcher = (ViewSwitcher)findViewById(R.id.heart_image_single);
         switcher.showNext();
 
+        // Find if user is logged in
+        try {
+            // Retrieve user
+            userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
+            // Add artwork below user in database
+            // KNOWN BUG: artwork is added below uid of user instead of below user.
+            DatabaseReference newRef = ref.child("user").child(userId).child("favorites").push();
+            newRef.setValue(artObject);
 
+            // Notify user that item is saved
+            Toast.makeText(SingleItemActivity.this, "Saved to favorites",
+                    Toast.LENGTH_SHORT).show();
 
-        // Notify user that item is saved
-        Toast.makeText(SingleItemActivity.this, "Saved to favorites",
-                Toast.LENGTH_SHORT).show();
+        } catch (NullPointerException e){
+            // If not logged in, show toast
+            e.printStackTrace();
+            Toast.makeText(SingleItemActivity.this, "Log-in needed",
+                    Toast.LENGTH_SHORT).show();
+        }
 
     }
 
@@ -95,6 +121,8 @@ public class SingleItemActivity extends AppCompatActivity {
         // Switch image to empty heart
         ViewSwitcher switcher = (ViewSwitcher)findViewById(R.id.heart_image_single);
         switcher.showNext();
+
+        // KNOWN BUG: Deleting not possible, as no way is found to recover item from database.
 
         // Notify user that item is removed
         Toast.makeText(SingleItemActivity.this, "Removed from favorites",
@@ -111,6 +139,7 @@ class ImageAsyncTask extends AsyncTask<String, Void, Bitmap> {
         this.imageView = imageView;
     }
 
+    // Load bitmap image
     protected Bitmap doInBackground(String... urls) {
         String url = urls[0];
         Bitmap image = null;
@@ -123,6 +152,7 @@ class ImageAsyncTask extends AsyncTask<String, Void, Bitmap> {
         return image;
     }
 
+    // Set bitmap on correct field
     protected void onPostExecute(Bitmap poster) {
         if(poster != null)
             imageView.setImageBitmap(poster);

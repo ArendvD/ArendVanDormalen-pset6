@@ -10,12 +10,12 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="arend.arendvandormalen_pset6.LogInActivity">
 
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="LOG IN SCREEN"
-        android:id="@+id/top_text"/>
+        android:id="@+id/top_text"
+        android:text="@string/log_in_title"
+        android:textSize="30sp"/>
 
     <EditText
         android:layout_width="wrap_content"
@@ -33,20 +33,26 @@
         android:inputType="textPassword"
         android:layout_below="@id/email_box"/>
 
-    <Button
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/create_account_button"
-        android:onClick="createAccount"
-        android:text="@string/create_account_button"
-        android:layout_below="@id/password_box"/>
+        android:orientation="horizontal"
+        android:layout_below="@id/password_box">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/log_in_button"
-        android:onClick="signIn"
-        android:text="@string/log_in_button"
-        android:layout_below="@id/create_account_button"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/create_account_button"
+            android:onClick="createAccount"
+            android:text="@string/create_account_button"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/log_in_button"
+            android:onClick="signIn"
+            android:text="@string/log_in_button"/>
+
+    </LinearLayout>
 
 </RelativeLayout>

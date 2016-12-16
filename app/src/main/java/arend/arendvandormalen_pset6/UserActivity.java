@@ -15,6 +15,13 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+/**
+ * Created by Arend on 2016-12-10.
+ * Activity where user information is displayed. The user is sent here on logging in or registering.
+ * In this activity options for editing email adress should be added.
+ * Additionally, the list of favorites will be displayed here.
+ */
+
 public class UserActivity extends AppCompatActivity {
 
 
@@ -27,13 +34,18 @@ public class UserActivity extends AppCompatActivity {
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
-        // Display email adress of user, if possible to retrieve.
+        // Display email address of user, if possible to retrieve.
         FirebaseUser fbUser = FirebaseAuth.getInstance().getCurrentUser();
-        if (fbUser.getEmail() != null) {
-            String userEmail = "Signed in as: " + fbUser.getEmail();
-            TextView emailView = (TextView)findViewById(R.id.email_user);
-            emailView.setText(userEmail);
+        String mailAddress = null;
+        if (fbUser != null) {
+            mailAddress = fbUser.getEmail();
         }
+        String userEmail = "Signed in as: " + mailAddress;
+        TextView emailView = (TextView)findViewById(R.id.email_user);
+        emailView.setText(userEmail);
+
+        // KNOWN BUG: Retrieving items from database not possible.
+
         /*
         String fbUserId = fbUser.getUid();
 

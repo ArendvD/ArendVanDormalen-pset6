@@ -14,9 +14,10 @@
         android:layout_width="250dp"
         android:layout_height="250dp"
         android:id="@+id/museum_logo_home"
+        android:contentDescription="@string/museum_logo_home_description"
         android:layout_centerHorizontal="true"
         android:layout_margin="10dp"
-        android:src="@drawable/ams_mus"/>
+        android:src="@drawable/rm"/>
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -32,7 +33,7 @@
             android:id="@+id/login_button_home"
             android:text="@string/log_in"
             android:onClick="logIn"
-            android:layout_margin="20dp"/>
+            android:layout_margin="30dp"/>
 
         <Button
             android:layout_width="wrap_content"
@@ -40,7 +41,7 @@
             android:id="@+id/database_button_home"
             android:text="@string/go_to_database"
             android:onClick="toDatabase"
-            android:layout_margin="20dp"/>
+            android:layout_margin="30dp"/>
 
     </LinearLayout>
 

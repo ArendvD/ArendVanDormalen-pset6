@@ -1,13 +1,12 @@
 package arend.arendvandormalen_pset6;
 
-import android.util.Log;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by Arend on 2016-12-09.
  * Custom data class for each Art Object.
+ * Data stored in these objects is displayed in the app on several points.
  */
 
 public class ArtObject implements Serializable{
@@ -27,15 +26,18 @@ public class ArtObject implements Serializable{
     public String creationDate; // Either single year or time span
     public String century;
 
-
-
-    public ArtObject(String id, String title, String artist){
-        this.id = id;
-        this.title = title;
-        this.artist = artist;
+    // Constructor
+    public ArtObject(){
     }
 
     // Set-methods
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setArtist(String artist) {
+        this.artist = artist;
+    }
 
     public void setCreationDate(String creationDate) {
         this.creationDate = creationDate;
@@ -116,8 +118,8 @@ public class ArtObject implements Serializable{
         return title;
     }
 
-    public String
-    getCentury() {
+    public String getCentury() {
         return century;
     }
+
 }

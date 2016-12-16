@@ -10,15 +10,15 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="arend.arendvandormalen_pset6.DatabaseActivity">
 
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="DATABASE"
+        android:text="@string/title_database"
+        android:textSize="30sp"
         android:id="@+id/title_database"/>
 
     <EditText
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:id="@+id/search_box_database"
         android:layout_below="@id/title_database"
@@ -29,7 +29,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/search_button_database"
-        android:layout_below="@id/search_box_database"
+        android:layout_toRightOf="@id/search_box_database"
+        android:layout_toEndOf="@id/search_box_database"
+        android:layout_alignTop="@id/search_box_database"
+        android:layout_alignBottom="@id/search_box_database"
         android:text="@string/search_button_database"
         android:onClick="searchOnTitle"/>
 
