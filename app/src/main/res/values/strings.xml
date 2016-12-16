@@ -13,4 +13,5 @@
     <string name="title_database">Search through the Rijksmuseum collection:</string>
     <string name="museum_logo_home_description">Rijksmuseum logo</string>
     <string name="log_in_title">Log in or register here:</string>
+    <string name="database_button_user">To Database</string>
 </resources>

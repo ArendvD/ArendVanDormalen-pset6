@@ -1,14 +1,10 @@
 package arend.arendvandormalen_pset6;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
 import android.widget.TextView;
-
-import java.util.ArrayList;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -18,12 +14,11 @@ import com.google.firebase.database.FirebaseDatabase;
 /**
  * Created by Arend on 2016-12-10.
  * Activity where user information is displayed. The user is sent here on logging in or registering.
- * In this activity options for editing email adress should be added.
+ * In this activity options for editing email address should be added.
  * Additionally, the list of favorites will be displayed here.
  */
 
 public class UserActivity extends AppCompatActivity {
-
 
     private DatabaseReference mDatabase;
 
@@ -32,6 +27,8 @@ public class UserActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
 
+
+        // Retrieve database
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
         // Display email address of user, if possible to retrieve.
@@ -44,14 +41,13 @@ public class UserActivity extends AppCompatActivity {
         TextView emailView = (TextView)findViewById(R.id.email_user);
         emailView.setText(userEmail);
 
-        // KNOWN BUG: Retrieving items from database not possible.
+        // KNOWN BUG: Retrieving items from database not possible. Attempt is below
 
         /*
         String fbUserId = fbUser.getUid();
 
+        User user = new User(fbUserId, mailAdress);
 
-        // TODO: Get list of ArtObjects from Firebase server
-        User user = new User("test", "test");
         final ArrayList<ArtObject> favoritesArray = user.getFavorites();
 
         // Set adapter to fill list with favorited items, using same layout as in search results
@@ -76,6 +72,13 @@ public class UserActivity extends AppCompatActivity {
             }
         });
         */
+    }
+
+    public void toDatabase2(View view){
+
+        Intent toDatabase = new Intent(this, DatabaseActivity.class);
+        startActivity(toDatabase);
 
     }
+
 }
