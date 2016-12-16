@@ -15,6 +15,8 @@ Filling in the log-in screen (through either logging in or registering) leads to
 Clicking on one of the items in the list in the search or favorites screen will open an activity where a single artwork is shown with detailed information.
 Here an item can be favorited or unfavorited.
 
+![Screenshot Homepage](http://i.imgur.com/JIk5vrP.png)
+![Screenshot Single Item](http://i.imgur.com/LAl1jr2.png)
 ---
 Peer review feedback(13-12-2016):
 
@@ -24,3 +26,4 @@ Ik vond het wel heel moeilijk te begrijpen wat waar gebeurt omdat er weinig comm
 Ik raad je aan om een stuk meer comments te gebruiken met waarom je code gebruikt (mijn eigen richtlijn is na elke witregel een comment). 
 Omdat je veel bestanden hebt zou ik wanneer je een readme maakt daar ook duidelijk inzet welke bestanden wanneer waarnaar verwijzen, misschien met een soort flowchart. 
 Verder is het voor zover ik kon zien helemaal goed, ik kwam niks overbodigs of onhandigs tegen ofzo!
+(Anna Vos)
